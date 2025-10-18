@@ -3,6 +3,25 @@ import math
 
 PI = math.pi
 
+# Alapvető matematikai műveletek
+def osszeadas(a, b):
+    """Két szám összeadása"""
+    return a + b
+
+def kivonas(a, b):
+    """Két szám kivonása"""
+    return a - b
+
+def szorzas(a, b):
+    """Két szám szorzása"""
+    return a * b
+
+def osztas(a, b):
+    """Két szám osztása"""
+    if b == 0:
+        raise ZeroDivisionError("Nullával való osztás nem lehetséges.")
+    return a / b
+
 # Két szám bekérése
 def beolvas_szamok():
 	a = float(input("Kérem az első számot (pontot használj tizedesjegyként!): "))
@@ -29,20 +48,20 @@ def main():
 		a, b = beolvas_szamok()
 
 		if valasztas == '1':
-			eredmeny = a + b
+			eredmeny = osszeadas(a, b)
 			muvelet = "összeadás"
 		elif valasztas == '2':
-			eredmeny = a - b
+			eredmeny = kivonas(a, b)
 			muvelet = "kivonás"
 		elif valasztas == '3':
-			eredmeny = a * b
+			eredmeny = szorzas(a, b)
 			muvelet = "szorzás"
 		elif valasztas == '4':
-			if b != 0:
-				eredmeny = a / b
+			try:
+				eredmeny = osztas(a, b)
 				muvelet = "osztás"
-			else:
-				print("Hiba: Nullával való osztás nem lehetséges.")
+			except ZeroDivisionError as e:
+				print(f"Hiba: {e}")
 				continue
 		else:
 			print("Érvénytelen választás. Kérlek próbáld újra.")
