@@ -27,6 +27,11 @@ def osztas(a, b):
     return a / b
 
 
+def hatvanyozas(a, b):
+    """Két szám hatványozása"""
+    return a**b
+
+
 # Két szám bekérése
 def beolvas_szamok():
     a = float(input("Kérem az első számot (pontot használj tizedesjegyként!): "))
@@ -40,15 +45,16 @@ def utasitasok():
     print("2 - Kivonás")
     print("3 - Szorzás")
     print("4 - Osztás")
-    print("5 - Kilépés")
+    print("5 - Hatványozás")
+    print("6 - Kilépés")
 
 
 def main():
     while True:
         utasitasok()
-        valasztas = input("Írd be a választott művelet számát (1/2/3/4/5): ")
+        valasztas = input("Írd be a választott művelet számát (1/2/3/4/5/6): ")
 
-        if valasztas == "5":
+        if valasztas == "6":
             print("Kilépés a programból.")
             break
 
@@ -70,11 +76,14 @@ def main():
             except ZeroDivisionError as e:
                 print(f"Hiba: {e}")
                 continue
+        elif valasztas == "5":
+            eredmeny = hatvanyozas(a, b)
+            muvelet = "hatványozás"
         else:
             print("Érvénytelen választás. Kérlek próbáld újra.")
             continue
 
-        print(f"A {muvelet} eredménye: {eredmeny}")
+        print(f"A(z) {muvelet} eredménye: {eredmeny}")
 
 
 if __name__ == "__main__":
