@@ -32,6 +32,11 @@ def hatvanyozas(a, b):
     return a**b
 
 
+def kor_terulet(r):
+    """Kör területének kiszámítása"""
+    return PI * r * r
+
+
 # Két szám bekérése
 def beolvas_szamok():
     a = float(input("Kérem az első számot (pontot használj tizedesjegyként!): "))
@@ -46,15 +51,16 @@ def utasitasok():
     print("3 - Szorzás")
     print("4 - Osztás")
     print("5 - Hatványozás")
-    print("6 - Kilépés")
+    print("6 - Kör területének kiszámítása")
+    print("7 - Kilépés")
 
 
 def main():
     while True:
         utasitasok()
-        valasztas = input("Írd be a választott művelet számát (1/2/3/4/5/6): ")
+        valasztas = input("Írd be a választott művelet számát (1/2/3/4/5/6/7): ")
 
-        if valasztas == "6":
+        if valasztas == "7":
             print("Kilépés a programból.")
             break
 
@@ -79,6 +85,9 @@ def main():
         elif valasztas == "5":
             eredmeny = hatvanyozas(a, b)
             muvelet = "hatványozás"
+        elif valasztas == "6":
+            eredmeny = kor_terulet(a)
+            muvelet = "kör területe"
         else:
             print("Érvénytelen választás. Kérlek próbáld újra.")
             continue
