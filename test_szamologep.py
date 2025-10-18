@@ -2,8 +2,7 @@
 Tesztek a szamologep.py modulhoz
 """
 
-from szamologep import (hatvanyozas, kivonas, kor_terulet, osszeadas, osztas,
-                        szorzas)
+from szamologep import hatvanyozas, kivonas, kor_terulet, osszeadas, osztas, szorzas
 
 
 def test_osszeadas():
