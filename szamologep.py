@@ -3,18 +3,22 @@ import math
 
 PI = math.pi
 
+
 # Alapvető matematikai műveletek
 def osszeadas(a, b):
     """Két szám összeadása"""
     return a + b
 
+
 def kivonas(a, b):
     """Két szám kivonása"""
     return a - b
 
+
 def szorzas(a, b):
     """Két szám szorzása"""
     return a * b
+
 
 def osztas(a, b):
     """Két szám osztása"""
@@ -22,52 +26,56 @@ def osztas(a, b):
         raise ZeroDivisionError("Nullával való osztás nem lehetséges.")
     return a / b
 
+
 # Két szám bekérése
 def beolvas_szamok():
-	a = float(input("Kérem az első számot (pontot használj tizedesjegyként!): "))
-	b = float(input("Kérem a második számot (pontot használj tizedesjegyként!): "))
-	return a, b
+    a = float(input("Kérem az első számot (pontot használj tizedesjegyként!): "))
+    b = float(input("Kérem a második számot (pontot használj tizedesjegyként!): "))
+    return a, b
+
 
 def utasitasok():
-	print("Válassz műveletet:")
-	print("1 - Összeadás")
-	print("2 - Kivonás")
-	print("3 - Szorzás")
-	print("4 - Osztás")
-	print("5 - Kilépés")
+    print("Válassz műveletet:")
+    print("1 - Összeadás")
+    print("2 - Kivonás")
+    print("3 - Szorzás")
+    print("4 - Osztás")
+    print("5 - Kilépés")
+
 
 def main():
-	while True:
-		utasitasok()
-		valasztas = input("Írd be a választott művelet számát (1/2/3/4/5): ")
+    while True:
+        utasitasok()
+        valasztas = input("Írd be a választott művelet számát (1/2/3/4/5): ")
 
-		if valasztas == '5':
-			print("Kilépés a programból.")
-			break
+        if valasztas == "5":
+            print("Kilépés a programból.")
+            break
 
-		a, b = beolvas_szamok()
+        a, b = beolvas_szamok()
 
-		if valasztas == '1':
-			eredmeny = osszeadas(a, b)
-			muvelet = "összeadás"
-		elif valasztas == '2':
-			eredmeny = kivonas(a, b)
-			muvelet = "kivonás"
-		elif valasztas == '3':
-			eredmeny = szorzas(a, b)
-			muvelet = "szorzás"
-		elif valasztas == '4':
-			try:
-				eredmeny = osztas(a, b)
-				muvelet = "osztás"
-			except ZeroDivisionError as e:
-				print(f"Hiba: {e}")
-				continue
-		else:
-			print("Érvénytelen választás. Kérlek próbáld újra.")
-			continue
+        if valasztas == "1":
+            eredmeny = osszeadas(a, b)
+            muvelet = "összeadás"
+        elif valasztas == "2":
+            eredmeny = kivonas(a, b)
+            muvelet = "kivonás"
+        elif valasztas == "3":
+            eredmeny = szorzas(a, b)
+            muvelet = "szorzás"
+        elif valasztas == "4":
+            try:
+                eredmeny = osztas(a, b)
+                muvelet = "osztás"
+            except ZeroDivisionError as e:
+                print(f"Hiba: {e}")
+                continue
+        else:
+            print("Érvénytelen választás. Kérlek próbáld újra.")
+            continue
 
-		print(f"A {muvelet} eredménye: {eredmeny}")
+        print(f"A {muvelet} eredménye: {eredmeny}")
+
 
 if __name__ == "__main__":
-	main()
+    main()

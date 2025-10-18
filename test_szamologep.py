@@ -1,6 +1,7 @@
 """
 Tesztek a szamologep.py modulhoz
 """
+
 from szamologep import osszeadas, kivonas, szorzas, osztas
 
 
@@ -43,7 +44,7 @@ def test_osztas_nullaval():
 
 if __name__ == "__main__":
     test_osszeadas()
-    test_kivonas() 
+    test_kivonas()
     test_szorzas()
     test_osztas()
     test_osztas_nullaval()
