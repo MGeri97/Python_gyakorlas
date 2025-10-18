@@ -40,13 +40,13 @@ def test_osztas_nullaval():
         assert False, "Null osztás nem váltott ki hibát"
     except ZeroDivisionError:
         assert True
-        
+
 
 def test_hatvanyozas():
-	"""Teszt a hatványozás funkcióhoz"""
-	assert hatvanyozas(2, 3) == 8
-	assert hatvanyozas(5, 0) == 1
-	assert hatvanyozas(3, 2) == 9
+    """Teszt a hatványozás funkcióhoz"""
+    assert hatvanyozas(2, 3) == 8
+    assert hatvanyozas(5, 0) == 1
+    assert hatvanyozas(3, 2) == 9
 
 
 if __name__ == "__main__":
