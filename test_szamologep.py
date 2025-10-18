@@ -2,7 +2,7 @@
 Tesztek a szamologep.py modulhoz
 """
 
-from szamologep import kivonas, osszeadas, osztas, szorzas
+from szamologep import kivonas, osszeadas, osztas, szorzas, hatvanyozas
 
 
 def test_osszeadas():
@@ -40,6 +40,13 @@ def test_osztas_nullaval():
         assert False, "Null osztás nem váltott ki hibát"
     except ZeroDivisionError:
         assert True
+        
+
+def test_hatvanyozas():
+	"""Teszt a hatványozás funkcióhoz"""
+	assert hatvanyozas(2, 3) == 8
+	assert hatvanyozas(5, 0) == 1
+	assert hatvanyozas(3, 2) == 9
 
 
 if __name__ == "__main__":
