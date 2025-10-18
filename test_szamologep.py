@@ -48,13 +48,15 @@ def test_hatvanyozas():
     assert hatvanyozas(2, 3) == 8
     assert hatvanyozas(5, 0) == 1
     assert hatvanyozas(3, 2) == 9
-    
+
+
 def test_kor_terulet():
-	"""Teszt a kör területének kiszámítása funkcióhoz"""
-	from math import pi
-	assert kor_terulet(1) == pi * 1 * 1
-	assert kor_terulet(0) == 0
-	assert kor_terulet(2.5) == pi * 2.5 * 2.5
+    """Teszt a kör területének kiszámítása funkcióhoz"""
+    from math import pi
+
+    assert kor_terulet(1) == pi * 1 * 1
+    assert kor_terulet(0) == 0
+    assert kor_terulet(2.5) == pi * 2.5 * 2.5
 
 
 if __name__ == "__main__":
