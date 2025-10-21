@@ -6,4 +6,5 @@ def udvozles():
     print(f"Üdvözlöm, {nev}!")
 
 
-udvozles()
+if __name__ == "__main__":
+    udvozles()
