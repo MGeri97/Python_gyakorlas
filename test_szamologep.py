@@ -2,7 +2,15 @@
 Tesztek a szamologep.py modulhoz
 """
 
-from szamologep import hatvanyozas, kivonas, kor_terulet, osszeadas, osztas, szorzas
+from szamologep import (
+    hatvanyozas,
+    kivonas,
+    kor_terulet,
+    osszeadas,
+    osztas,
+    szorzas,
+    kor_kerulet,
+)
 
 
 def test_osszeadas():
@@ -56,6 +64,15 @@ def test_kor_terulet():
     assert kor_terulet(1) == pi * 1 * 1
     assert kor_terulet(0) == 0
     assert kor_terulet(2.5) == pi * 2.5 * 2.5
+
+
+def test_kor_kerulet():
+    """Teszt a kör kerületének kiszámítása funkcióhoz"""
+    from math import pi
+
+    assert kor_kerulet(1) == 2 * pi * 1
+    assert kor_kerulet(0) == 0
+    assert kor_kerulet(2.5) == 2 * pi * 2.5
 
 
 if __name__ == "__main__":

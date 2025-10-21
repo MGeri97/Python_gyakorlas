@@ -6,27 +6,37 @@
 ## Leírás
 
 Egyszerű Python számológép program különböző matematikai műveletekkel és interaktív menüvel.
+Üdvözlő program is található benne (`udvozles.py`), amely bekéri a felhasználó nevét és üdvözli őt.
 
 ## Funkciók
 
+### Számológép (`szamologep.py`)
 - ➕ **Összeadás** - Két szám összeadása
 - ➖ **Kivonás** - Két szám kivonása  
 - ✖️ **Szorzás** - Két szám szorzása
 - ➗ **Osztás** - Két szám osztása (nullával való osztás kezelése)
 - 🔢 **Hatványozás** - Egy szám hatványának kiszámítása
 - 🔵 **Kör területe** - Kör területének kiszámítása sugár alapján
-- 🖥️ **Interaktív menü** - Felhasználóbarát választási lehetőségek
+- ⭕ **Kör kerülete** - Kör kerületének kiszámítása sugár alapján
+- 🖥️ **Interaktív menü** - 8 különböző művelet közül választhatsz
+
+### Üdvözlő program (`udvozles.py`)
+- 👋 **Személyes üdvözlés** - Bekéri és üdvözli a felhasználót
 
 ## Használat
 
 ### Interaktív mód
 ```bash
+# Számológép program
 python szamologep.py
+
+# Üdvözlő program
+python udvozles.py
 ```
 
 ### Programban való használat
 ```python
-from szamologep import osszeadas, kivonas, szorzas, osztas, hatvanyozas, kor_terulet
+from szamologep import osszeadas, kivonas, szorzas, osztas, hatvanyozas, kor_terulet, kor_kerulet
 
 # Alapvető műveletek
 print(osszeadas(5, 3))      # 8
@@ -37,6 +47,18 @@ print(osztas(15, 3))        # 5.0
 # Haladó műveletek
 print(hatvanyozas(2, 8))    # 256
 print(kor_terulet(5))       # 78.53981633974483 (π × r²)
+print(kor_kerulet(5))       # 31.41592653589793 (2 × π × r)
+```
+
+### Üdvözlő program használata
+```bash
+python udvozles.py
+```
+
+```python
+from udvozles import udvozles
+
+udvozles()  # Interaktív név bekérés és üdvözlés
 ```
 
 ### Hiba kezelés
@@ -90,6 +112,10 @@ pytest -v
 
 # Csak egy teszt fájl
 pytest test_szamologep.py
+
+VAGY
+
+pytest test_udvozles.py
 ```
 
 ### Kód minőség ellenőrzés
@@ -153,9 +179,13 @@ git commit -m "Update README"
 ```
 Python_gyakorlas/
 ├── szamologep.py           # Fő számológép modul
-├── test_szamologep.py      # Unit tesztek
+├── udvozles.py            # Üdvözlő program
+├── test_szamologep.py      # Unit tesztek a számológéphez
+├── test_udvozles.py       # Unit tesztek az üdvözlő programhoz
 ├── requirements.txt        # Python függőségek
 ├── README.md              # Dokumentáció
+├── en/                    # Angol dokumentáció
+│   └── README.md
 └── .github/
     └── workflows/
         ├── python-app.yml      # CI pipeline
