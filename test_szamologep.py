@@ -4,9 +4,22 @@ Tesztek a szamologep.py modulhoz
 
 import math
 
-from szamologep import (CalculatorMemory, cos, gyok, hatvanyozas, kivonas,
-                        kor_kerulet, kor_terulet, log, log10, osszeadas,
-                        osztas, sin, szorzas, tan)
+from szamologep import (
+    CalculatorMemory,
+    cos,
+    gyok,
+    hatvanyozas,
+    kivonas,
+    kor_kerulet,
+    kor_terulet,
+    log,
+    log10,
+    osszeadas,
+    osztas,
+    sin,
+    szorzas,
+    tan,
+)
 
 
 def test_osszeadas():
