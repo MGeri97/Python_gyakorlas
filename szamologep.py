@@ -204,7 +204,8 @@ def megjelenit_elozmenyeket():
     table.add_column("Művelet", style="white")
     table.add_column("Eredmény", style="green", justify="right")
 
-    for op, result, time in history[-10:]:  # Csak az utolsó 10; ha kevesebb van, az összeset visszaadja (slicing biztonságos)
+    # Csak az utolsó 10; ha kevesebb van, az összeset visszaadja (slicing biztonságos)
+    for op, result, time in history[-10:]:
         table.add_row(time, op, f"{result:.6g}")
 
     console.print(table)
@@ -248,6 +249,171 @@ def megjelenit_sugo():
     console.print(panel)
 
 
+def kezeli_menu_parancsok(valasztas: str, utolso_eredmeny: float = None) -> bool:
+    """
+    Kezeli a menü parancsokat (0, 9, 10, H, M+, M-, MR, MC).
+    Visszaadja True-t, ha a parancs kezelve lett, egyébként False.
+    """
+    if valasztas == "0":
+        console.print("[bold green]👋 Viszlát! Köszönöm a használatot![/bold green]")
+        return "exit"
+
+    elif valasztas == "9":
+        clear_screen()
+        megjelenit_fejlec()
+        megjelenit_elozmenyeket()
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    elif valasztas == "10":
+        calc_memory.clear_history()
+        console.print("[bold green]✓ Előzmények törölve![/bold green]")
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    elif valasztas == "H":
+        clear_screen()
+        megjelenit_fejlec()
+        megjelenit_sugo()
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    elif valasztas == "M+":
+        kezeli_memoria_hozzaadas(utolso_eredmeny)
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    elif valasztas == "M-":
+        kezeli_memoria_kivonas(utolso_eredmeny)
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    elif valasztas == "MR":
+        mem_val = calc_memory.memory_recall()
+        console.print(f"[bold yellow]💾 Memória értéke: {mem_val:.6g}[/bold yellow]")
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    elif valasztas == "MC":
+        calc_memory.memory_clear()
+        console.print("[bold green]✓ Memória törölve![/bold green]")
+        input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        return True
+
+    return False
+
+
+def kezeli_memoria_hozzaadas(utolso_eredmeny: float):
+    """Kezeli a M+ memória hozzáadás műveletet."""
+    if utolso_eredmeny is not None:
+        calc_memory.memory_add(utolso_eredmeny)
+        uj_ertek = calc_memory.memory_recall()
+        console.print(
+            f"[bold green]✓ {utolso_eredmeny:.6g} hozzáadva a memóriához! "
+            f"Új érték: {uj_ertek:.6g}[/bold green]"
+        )
+    else:
+        console.print("[bold red]Nincs még eredmény a memóriához adáshoz![/bold red]")
+
+
+def kezeli_memoria_kivonas(utolso_eredmeny: float):
+    """Kezeli a M- memória kivonás műveletet."""
+    if utolso_eredmeny is not None:
+        calc_memory.memory_subtract(utolso_eredmeny)
+        uj_ertek = calc_memory.memory_recall()
+        console.print(
+            f"[bold green]✓ {utolso_eredmeny:.6g} kivonva a memóriából! "
+            f"Új érték: {uj_ertek:.6g}[/bold green]"
+        )
+    else:
+        console.print(
+            "[bold red]Nincs még eredmény a memóriából kivonáshoz![/bold red]"
+        )
+
+
+def vegrehajt_ket_szamos_muvelet(valasztas: str, a: float, b: float):
+    """Végrehajtja a két számos műveletet és visszaadja az eredményt és a műveletet."""
+    if valasztas == "1":
+        eredmeny = osszeadas(a, b)
+        muvelet = f"{a:.6g} + {b:.6g}"
+    elif valasztas == "2":
+        eredmeny = kivonas(a, b)
+        muvelet = f"{a:.6g} - {b:.6g}"
+    elif valasztas == "3":
+        eredmeny = szorzas(a, b)
+        muvelet = f"{a:.6g} × {b:.6g}"
+    elif valasztas == "4":
+        eredmeny = osztas(a, b)
+        muvelet = f"{a:.6g} ÷ {b:.6g}"
+    elif valasztas == "5":
+        eredmeny = hatvanyozas(a, b)
+        muvelet = f"{a:.6g} ^ {b:.6g}"
+    else:
+        raise ValueError("Érvénytelen művelet")
+
+    return eredmeny, muvelet
+
+
+def vegrehajt_egy_szamos_muvelet(valasztas: str, a: float):
+    """Végrehajtja az egy számos műveletet és visszaadja az eredményt és a műveletet."""
+    if valasztas == "6":
+        eredmeny = kor_terulet(a)
+        muvelet = f"Kör területe (r={a:.6g})"
+    elif valasztas == "7":
+        eredmeny = kor_kerulet(a)
+        muvelet = f"Kör kerülete (r={a:.6g})"
+    elif valasztas == "8":
+        eredmeny = gyok(a)
+        muvelet = f"√{a:.6g}"
+    elif valasztas == "11":
+        eredmeny = sin(a)
+        muvelet = f"sin({a:.6g})"
+    elif valasztas == "12":
+        eredmeny = cos(a)
+        muvelet = f"cos({a:.6g})"
+    elif valasztas == "13":
+        eredmeny = tan(a)
+        muvelet = f"tan({a:.6g})"
+    elif valasztas == "14":
+        eredmeny = log(a)
+        muvelet = f"ln({a:.6g})"
+    elif valasztas == "15":
+        eredmeny = log10(a)
+        muvelet = f"log10({a:.6g})"
+    else:
+        raise ValueError("Érvénytelen művelet")
+
+    return eredmeny, muvelet
+
+
+def vegrehajt_muvelet(valasztas: str):
+    """Végrehajtja a kiválasztott matematikai műveletet."""
+    if valasztas in ["1", "2", "3", "4", "5"]:
+        console.print("\n[cyan]Két szám bekérése:[/cyan]")
+        a, b = beolvas_szamok()
+        eredmeny, muvelet = vegrehajt_ket_szamos_muvelet(valasztas, a, b)
+    elif valasztas in ["6", "7", "8", "11", "12", "13", "14", "15"]:
+        console.print("\n[cyan]Egy szám bekérése:[/cyan]")
+        a = beolvas_szam("Kérem a számot: ")
+        eredmeny, muvelet = vegrehajt_egy_szamos_muvelet(valasztas, a)
+    else:
+        console.print("[bold red]❌ Érvénytelen választás![/bold red]")
+        return None, None
+
+    return eredmeny, muvelet
+
+
+def megjelenit_eredmeny(muvelet: str, eredmeny: float):
+    """Megjeleníti a művelet eredményét egy panelben."""
+    eredmeny_panel = Panel(
+        f"[bold green]{muvelet} = {eredmeny:.10g}[/bold green]",
+        title="✨ Eredmény",
+        border_style="green",
+    )
+    console.print("\n")
+    console.print(eredmeny_panel)
+
+
 def utasitasok():
     """Utasítások megjelenítése (régi kompatibilitás)"""
     megjelenit_menu()
@@ -265,143 +431,21 @@ def main():
 
         valasztas = input("\n🔢 Válassz műveletet: ").strip().upper()
 
-        if valasztas == "0":
-            console.print(
-                "[bold green]👋 Viszlát! Köszönöm a használatot![/bold green]"
-            )
+        # Menü parancsok kezelése
+        menu_eredmeny = kezeli_menu_parancsok(valasztas, utolso_eredmeny)
+        if menu_eredmeny == "exit":
             break
-
-        elif valasztas == "9":
-            clear_screen()
-            megjelenit_fejlec()
-            megjelenit_elozmenyeket()
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
+        elif menu_eredmeny:
             continue
 
-        elif valasztas == "10":
-            calc_memory.clear_history()
-            console.print("[bold green]✓ Előzmények törölve![/bold green]")
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-            continue
-
-        elif valasztas == "H":
-            clear_screen()
-            megjelenit_fejlec()
-            megjelenit_sugo()
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-            continue
-
-        elif valasztas == "M+":
-            if utolso_eredmeny is not None:
-                calc_memory.memory_add(utolso_eredmeny)
-                uj_ertek = calc_memory.memory_recall()
-                console.print(
-                    f"[bold green]✓ {utolso_eredmeny:.6g} hozzáadva a memóriához! "
-                    f"Új érték: {uj_ertek:.6g}[/bold green]"
-                )
-            else:
-                console.print(
-                    "[bold red]Nincs még eredmény a memóriához adáshoz![/bold red]"
-                )
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-            continue
-
-        elif valasztas == "M-":
-            if utolso_eredmeny is not None:
-                calc_memory.memory_subtract(utolso_eredmeny)
-                uj_ertek = calc_memory.memory_recall()
-                console.print(
-                    f"[bold green]✓ {utolso_eredmeny:.6g} kivonva a memóriából! "
-                    f"Új érték: {uj_ertek:.6g}[/bold green]"
-                )
-            else:
-                console.print(
-                    "[bold red]Nincs még eredmény a memóriából kivonáshoz![/bold red]"
-                )
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-            continue
-
-        elif valasztas == "MR":
-            mem_val = calc_memory.memory_recall()
-            console.print(
-                f"[bold yellow]💾 Memória értéke: {mem_val:.6g}[/bold yellow]"
-            )
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-            continue
-
-        elif valasztas == "MC":
-            calc_memory.memory_clear()
-            console.print("[bold green]✓ Memória törölve![/bold green]")
-            input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-            continue
-
-        # Műveletek végrehajtása
+        # Matematikai műveletek végrehajtása
         try:
-            if valasztas in ["1", "2", "3", "4", "5"]:
-                console.print("\n[cyan]Két szám bekérése:[/cyan]")
-                a, b = beolvas_szamok()
+            eredmeny, muvelet = vegrehajt_muvelet(valasztas)
 
-                if valasztas == "1":
-                    eredmeny = osszeadas(a, b)
-                    muvelet = f"{a:.6g} + {b:.6g}"
-                elif valasztas == "2":
-                    eredmeny = kivonas(a, b)
-                    muvelet = f"{a:.6g} - {b:.6g}"
-                elif valasztas == "3":
-                    eredmeny = szorzas(a, b)
-                    muvelet = f"{a:.6g} × {b:.6g}"
-                elif valasztas == "4":
-                    eredmeny = osztas(a, b)
-                    muvelet = f"{a:.6g} ÷ {b:.6g}"
-                elif valasztas == "5":
-                    eredmeny = hatvanyozas(a, b)
-                    muvelet = f"{a:.6g} ^ {b:.6g}"
-
-            elif valasztas in ["6", "7", "8", "11", "12", "13", "14", "15"]:
-                console.print("\n[cyan]Egy szám bekérése:[/cyan]")
-                a = beolvas_szam("Kérem a számot: ")
-
-                if valasztas == "6":
-                    eredmeny = kor_terulet(a)
-                    muvelet = f"Kör területe (r={a:.6g})"
-                elif valasztas == "7":
-                    eredmeny = kor_kerulet(a)
-                    muvelet = f"Kör kerülete (r={a:.6g})"
-                elif valasztas == "8":
-                    eredmeny = gyok(a)
-                    muvelet = f"√{a:.6g}"
-                elif valasztas == "11":
-                    eredmeny = sin(a)
-                    muvelet = f"sin({a:.6g})"
-                elif valasztas == "12":
-                    eredmeny = cos(a)
-                    muvelet = f"cos({a:.6g})"
-                elif valasztas == "13":
-                    eredmeny = tan(a)
-                    muvelet = f"tan({a:.6g})"
-                elif valasztas == "14":
-                    eredmeny = log(a)
-                    muvelet = f"ln({a:.6g})"
-                elif valasztas == "15":
-                    eredmeny = log10(a)
-                    muvelet = f"log10({a:.6g})"
-
-            else:
-                console.print("[bold red]❌ Érvénytelen választás![/bold red]")
-                input("\n⏎ Nyomj Enter-t a folytatáshoz...")
-                continue
-
-            # Eredmény megjelenítése
-            utolso_eredmeny = eredmeny
-            calc_memory.add_history(muvelet, eredmeny)
-
-            eredmeny_panel = Panel(
-                f"[bold green]{muvelet} = {eredmeny:.10g}[/bold green]",
-                title="✨ Eredmény",
-                border_style="green",
-            )
-            console.print("\n")
-            console.print(eredmeny_panel)
+            if eredmeny is not None and muvelet is not None:
+                utolso_eredmeny = eredmeny
+                calc_memory.add_history(muvelet, eredmeny)
+                megjelenit_eredmeny(muvelet, eredmeny)
 
         except (ZeroDivisionError, ValueError) as e:
             console.print(f"[bold red]❌ Hiba: {e}[/bold red]")

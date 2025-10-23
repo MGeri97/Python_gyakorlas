@@ -2,8 +2,9 @@
 Üdvözlő program tesztelése
 """
 
-from unittest.mock import patch
 from io import StringIO
+from unittest.mock import patch
+
 from udvozles import udvozles
 
 
