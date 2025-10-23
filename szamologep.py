@@ -204,7 +204,7 @@ def megjelenit_elozmenyeket():
     table.add_column("Művelet", style="white")
     table.add_column("Eredmény", style="green", justify="right")
 
-    for op, result, time in history[-10:]:  # Csak az utolsó 10
+    for op, result, time in history[-10:]:  # Csak az utolsó 10; ha kevesebb van, az összeset visszaadja (slicing biztonságos)
         table.add_row(time, op, f"{result:.6g}")
 
     console.print(table)
