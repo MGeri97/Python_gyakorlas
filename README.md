@@ -214,7 +214,6 @@ A projekt automatikus CI/CD pipeline-nal rendelkezik:
 ### 🎨 **Code Quality Workflow**  
 - Futtatás: Commit üzenetben `[quality]` vagy `[ci]` esetén
 - Kód formázás ellenőrzés (`black`)
-- Import rendezés ellenőrzés (`isort`)
 - Típus ellenőrzés (`mypy`)
 - Részletes kód minőség (`pylint`)
 

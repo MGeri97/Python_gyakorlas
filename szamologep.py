@@ -168,24 +168,28 @@ def megjelenit_fejlec():
 def megjelenit_menu():
     """Menü megjelenítése táblázatban"""
     table = Table(
-        title="📋 Műveletek Menü", show_header=True, header_style="bold magenta"
+        title="📋 Műveletek Menü",
+        show_header=True,
+        header_style="bold magenta",
+        box=None,  # Eltávolítjuk a kereteket
+        padding=(0, 1),  # Csökkentjük a paddingot
     )
-    table.add_column("Szám", style="cyan", width=6)
-    table.add_column("Művelet", style="green")
-    table.add_column("Szám", style="cyan", width=6)
-    table.add_column("Művelet", style="green")
+    table.add_column("Szám", style="cyan", width=4, no_wrap=True)
+    table.add_column("Művelet", style="green", width=22, no_wrap=True)
+    table.add_column("Szám", style="cyan", width=4, no_wrap=True)
+    table.add_column("Művelet", style="green", width=22, no_wrap=True)
 
-    table.add_row("1", "➕ Összeadás", "11", "📐 Szinusz")
-    table.add_row("2", "➖ Kivonás", "12", "📐 Koszinusz")
-    table.add_row("3", "✖️ Szorzás", "13", "📐 Tangens")
-    table.add_row("4", "➗ Osztás", "14", "📊 Logaritmus (ln)")
-    table.add_row("5", "🔢 Hatványozás", "15", "📊 Logaritmus (log10)")
-    table.add_row("6", "🔵 Kör területe", "M+", "💾 Memóriába ad")
-    table.add_row("7", "⭕ Kör kerülete", "M-", "💾 Memóriából kivon")
-    table.add_row("8", "√ Négyzetgyök", "MR", "💾 Memória visszahívás")
-    table.add_row("9", "📜 Előzmények", "MC", "💾 Memória törlés")
-    table.add_row("10", "🗑️ Előzmények törlése", "H", "❓ Súgó")
-    table.add_row("0", "❌ Kilépés", "", "")
+    table.add_row("1", "Összeadás", "11", "Szinusz")
+    table.add_row("2", "Kivonás", "12", "Koszinusz")
+    table.add_row("3", "Szorzás", "13", "Tangens")
+    table.add_row("4", "Osztás", "14", "Logaritmus (ln)")
+    table.add_row("5", "Hatványozás", "15", "Logaritmus (log10)")
+    table.add_row("6", "Kör területe", "M+", "Memóriába ad")
+    table.add_row("7", "Kör kerülete", "M-", "Memóriából kivon")
+    table.add_row("8", "Négyzetgyök", "MR", "Memória visszahívás")
+    table.add_row("9", "Előzmények", "MC", "Memória törlés")
+    table.add_row("10", "Előzmények törlése", "H", "Súgó")
+    table.add_row("0", "Kilépés", "", "")
 
     console.print(table)
 
